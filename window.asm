@@ -35,7 +35,19 @@ _ProcWinMain proc use ebx edi esi,hWnd,uMsg,wParam,lParam
                 invoke Endpaint,hWnd,addr @stPs
             
             .elseif eax == WM_CLOSE
-                    invoke 
+                    invoke DestroyWindows,hWinMain
+                    invoke PostQuitMessage,NULL
+            .else
+                    invoke DefWindowProc,hWnd,uMsg,wParam,lParam
+                    ret
+            .endif
+;**************************************************************************************************************
+             xor eax,eax
+             ret
+_ProcWinMain endp
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+_WM
+
              
              
              
