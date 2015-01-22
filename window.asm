@@ -46,7 +46,14 @@ _ProcWinMain proc use ebx edi esi,hWnd,uMsg,wParam,lParam
              ret
 _ProcWinMain endp
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-_WM
+_WinMain proc
+         local @stWndClass:WNDCLASSEX
+         local @stMsg:Msg
+         
+         invoke GetModuleHandle,NULL
+         mov hInstance,eax
+         invoke RtlZeroMemory,addr @stWndClass,sizeof @stWndClass
+         
 
              
              
