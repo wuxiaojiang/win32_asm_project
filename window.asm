@@ -19,7 +19,7 @@ szCaption db 'my first window',0
 szText db 'by biopunk',0
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
       .code
-_ProcWinMain proc use ebx edi esi,hWnd,uMsg,wParam,lParam
+_ProcWinMain proc uses ebx edi esi,hWnd,uMsg,wParam,lParam
              local @stPs:PAINTSTRUCT
              local @stRect:RECT
              local @hDc
