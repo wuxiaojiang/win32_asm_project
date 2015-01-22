@@ -53,6 +53,43 @@ _WinMain proc
          invoke GetModuleHandle,NULL
          mov hInstance,eax
          invoke RtlZeroMemory,addr @stWndClass,sizeof @stWndClass
+;*******************************************************************************************************************
+;注册窗口
+;********************************************************************************************************************
+         invoke LoadCursor,0,IDC_ARROW
+         mov @stWndClass.hCursor,eax
+         push hInstance
+         pop @stWndClass.hInstance
+         mov @stWndClass.cbSize,sizeof WNDCLASSEX
+         mov @stWndClass.style,CS_HREDRAW or CS_VREDRAW
+         mov @stWndClass.lpfnWndProc,offset _ProcWinMain
+         mov @stWndClass.hbrBackground,COLOR_WINDOW + 1
+         mov @stWndClass.lpszClassName,offset szClassName 
+         invoke RegisterClassEx,addr @stWndClass
+;*********************************************************************************************************************
+;建立并显示窗口
+;*********************************************************************************************************************
+        invoke CreatWindowEx,WS_EX_CLIENTEDGE,offset szClassName,offset szCaptionMain,WS_OVERLAPPEDWINDOW,100,100,600,400,NULL,NULL,hInstance,NULL
+        mov hWinMain,eax
+        invoke ShowWindows,hWinMain,SW_SHOWNORMAL
+        invoke UpdateWindow,hWinMain
+;**************************************************************************************************************************************************************
+;建立消息循环
+;**************************************************************************************************************************************************************
+        .while TRUE
+               invoke GetMessage,addr @stMsg,NULL,0,0
+               .break .if eax==0
+               invoke TranslateMessage,addr @stMsg
+               invoke DispatchMessage,addr @stMsg
+               .endp
+               ret
+_WinMain       endp
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+start:
+              call _WinMain
+              invoke ExitProcess,NULL
+;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+              end start
          
 
              
