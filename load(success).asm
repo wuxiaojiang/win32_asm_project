@@ -10,15 +10,16 @@ includelib user32.lib
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	.data
 szText    db     10 dup(?)
-szFmat    db     '%d',0  
-szFmat2   db     '%0x',0  
+szFmat  db     '%d',0  
+szFmat2 db     '%0x',0  
 	.const
-szPath    db     'C:\windows\system32\calc.exe',0
+szPath    db     'C:\Windows\system32\calc.exe',0
 szF       db     '加载失败',0
 szS       db     '加载成功 ',0
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	.code
 _load proc
+      local @msg 
       local @stSTARTUPINFO:STARTUPINFO
       local @stPROCESS_INFORMATION : PROCESS_INFORMATION
    
