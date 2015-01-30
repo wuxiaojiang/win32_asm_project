@@ -19,7 +19,6 @@ szS       db     '加载成功 ',0
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	.code
 _load proc
-      local @msg 
       local @stSTARTUPINFO:STARTUPINFO
       local @stPROCESS_INFORMATION : PROCESS_INFORMATION
    
