@@ -8,16 +8,15 @@ include    user32.inc
 includelib kernel32.lib
 includelib user32.lib
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-	.data?
-szText    dd     ?
 	.const
 szPath    db     'C:\Windows\system32\calc.exe',0
 szCaption db     '信息',0
 szF       db     '加载失败',0
-szS       db     '加载成功 ',0
+;szS       db     '加载成功 ',0
 ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 	.code
 _load proc 
+      local @msg
       local @stSTARTUPINFO:STARTUPINFO
       local @stPROCESS_INFORMATION : PROCESS_INFORMATION
       
@@ -28,7 +27,9 @@ _load proc
       .if eax == NULL
           invoke MessageBoxA,NULL,offset szF,offset szCaption,MB_OK
       .else
-          invoke MessageBoxA,NULL,offset szS,offset szCaption,MB_OK
+          mov eax,@stPROCESS_INFORMATION
+          mov @msg,eax
+          invoke MessageBoxA,NULL,@msg,offset szCaption,MB_OK
           ret
        .endif
 
